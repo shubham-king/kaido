@@ -2,7 +2,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { servers } from "../api/gogoanime_servers";
 function handleConsumetResponse(endpoint, parameter) {
-  const BASE_URL = `https://aniwatch-api-dusky.vercel.app/anime/gogoanime`;
+  const BASE_URL = `https://aniwatch-api-dusky.vercel.app/api/v2/hianime`;
   const results = useQuery(`${endpoint}${parameter}`, async () => {
     if (parameter) {
       return await axios
