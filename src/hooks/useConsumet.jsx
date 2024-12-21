@@ -2,7 +2,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { servers } from "../api/gogoanime_servers";
 function handleConsumetResponse(endpoint, parameter) {
-  const BASE_URL = `https://anime-scraper-kohl.vercel.app/`;
+  const BASE_URL = `https://anitaku.bz/`;
   const results = useQuery(`${endpoint}${parameter}`, async () => {
     if (parameter) {
       return await axios
