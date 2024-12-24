@@ -1,8 +1,13 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { servers } from "../api/gogoanime_servers";
+
 function handleConsumetResponse(endpoint, parameter) {
-  const BASE_URL = `https://consumet-api-vab8.onrender.com/anime/gogoanime`;
+  // Proxy URL
+  const PROXY_URL = `https://testing-cors.harc6r.easypanel.host/`;
+  const TARGET_API = `https://consumet-api-vab8.onrender.com/anime/gogoanime`;
+  const BASE_URL = `${PROXY_URL}${TARGET_API}`;
+
   const results = useQuery(`${endpoint}${parameter}`, async () => {
     if (parameter) {
       return await axios
@@ -10,9 +15,11 @@ function handleConsumetResponse(endpoint, parameter) {
         .catch((err) => console.log(err));
     }
   });
+
   if (!parameter) {
     return { isLoading: true };
   }
+
   return {
     isLoading: results.isLoading,
     isError: results.isError,
@@ -35,9 +42,7 @@ export function useSearch(name) {
   if (results?.length === 0) {
     return { noAnime: true };
   }
-  /**
-   * if results only contain one item determine wheter its sub or dub
-   */
+
   if (results?.length === 1) {
     if (
       results[0].id.slice(results[0].id.length - 3, results[0].id.length) ===
@@ -48,28 +53,15 @@ export function useSearch(name) {
       subAnime = results[0];
     }
   }
-  console.log(results);
+
   if (results?.length > 1) {
     const suffix_0 = results[0].id.slice(
       results[0].id.length - 3,
       results[0].id.length
     );
-    /**
-     * if results.length is more than one
-     * if the first item is not dub->
-     * then set the subAnime=results[0]
-     *
-     * check if the second item is dub->
-     * if true set the dubAnime=results[1]
-     * else set dubAnime=null
-     *
-     * else check if first item dub->
-     *  if yes set dubAnime=results[0]
-     *  and subAnime=null
-     */
+
     if (suffix_0 !== "dub") {
       subAnime = results[0];
-
       dubAnime =
         results.find((el) => el.id === subAnime.id + "-dub") || results[1];
     } else if (suffix_0 === "dub") {
@@ -79,6 +71,7 @@ export function useSearch(name) {
       );
     }
   }
+
   if (!searchResults.isLoading) {
     return {
       dub: dubAnime,
@@ -95,6 +88,7 @@ export function useAnimeInfo(id) {
     return results.data;
   }
 }
+
 export function useServers(episodeId) {
   const results = handleConsumetResponse(`/servers/`, episodeId);
 
