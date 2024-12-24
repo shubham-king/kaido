@@ -46,10 +46,10 @@ export default function Footer() {
       <div className="alphabet-list d-flex">{links}</div>
       <div className="copyright-text">
         <p>
-          Botonic does not store any files on our server; we only link to the
+          1xAnime does not store any files on our server; we only link to the
           media which is hosted on 3rd party services.
         </p>
-        <p>&copy; Botonic All rights reserved.</p>
+        <p>&copy; 1xAnime All rights reserved.</p>
       </div>
     </div>
   );
