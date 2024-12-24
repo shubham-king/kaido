@@ -123,6 +123,25 @@ export default function WatchAnime() {
     }
   }, [subInfo, dubInfo]);
 
+  const baseEpisodeUrl = episodeQuality?.find(
+    (el) => el.quality === quality
+  )?.url;
+  const referer = selectedServer == "gogocdn" && "https://s3embtaku.pro";
+  const origin = selectedServer == "gogocdn" && "https://s3embtaku.pro";
+  const sourceUrl =
+    selectedServer == "gogocdn"
+      ? `${process.env.NEXT_PUBLIC_M3U8_PROXY_URL}/proxy?url=${
+          encodeURIComponent(btoa(baseEpisodeUrl)) +
+          "&headers=" +
+          btoa(
+            JSON.stringify({
+              referer: referer,
+              origin: origin,
+            })
+          )
+        }`
+      : baseEpisodeUrl;
+
   // Server and episode buttons to change the respective item
   const serverButtons = servers?.map((el, idx) => {
     return (
@@ -189,11 +208,7 @@ export default function WatchAnime() {
             <div className="video-player">
               <div className="hls-container">
                 {episodeQuality?.length > 0 ? (
-                  <HlsVideoPlayer
-                    url={
-                      episodeQuality?.find((el) => el.quality === quality)?.url
-                    }
-                  />
+                  <HlsVideoPlayer url={sourceUrl} />
                 ) : (
                   <div
                     className="d-flex a-center j-center"
