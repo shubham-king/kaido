@@ -3,10 +3,12 @@ import { useQuery } from "react-query";
 import { servers } from "../api/gogoanime_servers";
 
 function handleConsumetResponse(endpoint, parameter) {
-  // Proxy URL
-  const PROXY_URL = `https://testing-cors.harc6r.easypanel.host/`;
+  // Proxy URL with /fetch route
+  const PROXY_URL = `https://testing-cors.harc6r.easypanel.host/fetch`;
   const TARGET_API = `https://consumet-api-vab8.onrender.com/anime/gogoanime`;
-  const BASE_URL = `${PROXY_URL}${TARGET_API}`;
+
+  // Construct the full proxied URL
+  const BASE_URL = `${PROXY_URL}?url=${encodeURIComponent(TARGET_API)}`;
 
   const results = useQuery(`${endpoint}${parameter}`, async () => {
     if (parameter) {
@@ -32,7 +34,6 @@ function handleConsumetResponse(endpoint, parameter) {
  * @param  name
  * @returns an object containing loading and error states from the query and data retrieved
  */
-
 export function useSearch(name) {
   const searchResults = handleConsumetResponse("/", name.toLowerCase());
   console.log(name.toLowerCase());
