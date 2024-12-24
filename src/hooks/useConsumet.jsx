@@ -4,7 +4,7 @@ import { servers } from "../api/gogoanime_servers";
 
 function handleConsumetResponse(endpoint, parameter) {
   // Proxy URL with /fetch route
-  const PROXY_URL = `https://testing-cors.harc6r.easypanel.host/fetch`;
+  const PROXY_URL = `https://testing-cors.harc6r.easypanel.host/fetch/`;
   const TARGET_API = `https://consumet-api-vab8.onrender.com/anime/gogoanime`;
 
   // Construct the full proxied URL
