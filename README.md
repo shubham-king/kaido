@@ -1,8 +1,8 @@
-# Botonic - Anime Streaming Website
+# 1xAnime - Anime Streaming Website
 ![image](https://github.com/Manj0tBenipal/kaido/assets/108014780/fb96dfe3-0a3a-4b95-9633-bd20509e7b84)
 
 
-Welcome to Botonic, your one-stop destination for streaming your favorite anime series and movies! This website is built using React and leverages several libraries and APIs to provide a seamless anime streaming experience.
+Welcome to 1xAnime, your one-stop destination for streaming your favorite anime series and movies! This website is built using React and leverages several libraries and APIs to provide a seamless anime streaming experience.
 
 
 
@@ -14,7 +14,7 @@ Welcome to Botonic, your one-stop destination for streaming your favorite anime 
 
 - **Streaming**: Stream anime episodes and movies directly from the website.
 
-- **User-friendly**: Botonic is designed with a user-friendly interface to enhance your viewing experience.
+- **User-friendly**: 1xAnime is designed with a user-friendly interface to enhance your viewing experience.
 
 ## Technologies Used
 
@@ -34,16 +34,16 @@ Welcome to Botonic, your one-stop destination for streaming your favorite anime 
 
 ## Getting Started
 
-If you want to set up Botonic locally on your machine, follow these steps:
+If you want to set up 1xAnime locally on your machine, follow these steps:
 
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/Manj0tBenipal/Botonic.git
-   cd Botonic
+   git clone https://github.com/Manj0tBenipal/1xAnime.git
+   cd 1xAnime
    npm install
    npm run dev
-After that you can access Botonic locally by visiting the URL displayed in the shell window
+After that you can access 1xAnime locally by visiting the URL displayed in the shell window
 ## Contributing
-We welcome contributions to improve and enhance Botonic. If you have any bug reports, feature requests, or code contributions, please feel free to open an issue or submit a pull request.
+We welcome contributions to improve and enhance 1xAnime. If you have any bug reports, feature requests, or code contributions, please feel free to open an issue or submit a pull request.
 
