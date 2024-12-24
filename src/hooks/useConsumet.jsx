@@ -21,7 +21,7 @@ function appendProxyToSources(rawData) {
 
 // Function to handle Consumet API responses
 function handleConsumetResponse(endpoint, parameter) {
-  const TARGET_API = `https://consumet-api-vab8.onrender.com/anime/gogoanime`;
+  const TARGET_API = `https://consumet-api-vab8.onrender.com/anime/zoro`;
   const BASE_URL = `${PROXY_URL}${encodeURIComponent(TARGET_API)}`;
 
   const results = useQuery(`${endpoint}${parameter}`, async () => {
