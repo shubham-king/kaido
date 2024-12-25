@@ -42,6 +42,10 @@ export default function App() {
           <Route path="search" element={<SearchResults />} />
           <Route path="watch" element={<WatchAnime />} />
         </Route>
+        <Routes>
+        <Route path="*" element={<Custom404 />} />
+
+        </Routes>
       </Routes>
     </BrowserRouter>
   );
