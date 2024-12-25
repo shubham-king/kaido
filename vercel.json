@@ -1,8 +1,9 @@
 {
-    "rewrites": [
+    "redirects": [
       {
         "source": "/:path*",
-        "destination": "/404" // Points to the custom 404 page
+        "destination": "/404",
+        "permanent": false
       }
     ]
   }
