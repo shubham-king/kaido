@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Nav from "./Layouts/Nav"; // Your navigation component
+import Nav from "./Layouts/Nav";
 
 // Lazy-loaded components
 const Home = lazy(() => import("./pages/Home"));
@@ -14,7 +14,7 @@ const SearchResults = lazy(() => import("./pages/SearchResults"));
 const RecommendedTopTen = lazy(() => import("./Layouts/RecommendedTopTen"));
 const AnimeInfoJikan = lazy(() => import("./components/AnimeInfo/AnimeInfoJikan"));
 const AnimeInfoKitsu = lazy(() => import("./components/AnimeInfo/AnimeInfoKitsu"));
-const Custom404 = lazy(() => import("./pages/404")); // 404 page component
+const Custom404 = lazy(() => import("./pages/404")); // 404 component
 
 export default function App() {
   return (
