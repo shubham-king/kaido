@@ -4,6 +4,8 @@ import Nav from "./Layouts/Nav";
 const Home = lazy(() => import("./pages/Home"));
 const Genre = lazy(() => import("./pages/Genre"));
 
+const Custom404 = lazy(() => import("./pages/404")); // Import 404 component
+
 const GenreSidebar = lazy(() => import("./Layouts/GenreSidebar"));
 
 const AnimeInfoRandom = lazy(() =>
