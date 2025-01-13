@@ -1,54 +1,31 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { servers } from "../api/gogoanime_servers";
-
-// Proxy URL
-const PROXY_URL = `https://testing-cors.harc6r.easypanel.host/fetch/?url=`;
-
-// Function to append proxy to sources
-function appendProxyToSources(rawData) {
-  if (rawData && rawData.sources) {
-    return {
-      ...rawData,
-      sources: rawData.sources.map((source) => ({
-        ...source,
-        url: `${PROXY_URL}${encodeURIComponent(source.url)}`, // Append proxy
-      })),
-    };
-  }
-  return rawData;
-}
-
-// Function to handle Consumet API responses
 function handleConsumetResponse(endpoint, parameter) {
-  const TARGET_API = `https://api-consumet-org-three-gamma.vercel.app/anime/anix`;
-  const BASE_URL = `${PROXY_URL}${encodeURIComponent(TARGET_API)}`;
-
+  const BASE_URL = `https://api-consumet-org-three-gamma.vercel.app/anime/gogoanime`;
   const results = useQuery(`${endpoint}${parameter}`, async () => {
     if (parameter) {
-      const response = await axios
+      return await axios
         .get(`${BASE_URL}${endpoint}${parameter}`)
-        .catch((err) => console.error(err));
-      return appendProxyToSources(response?.data); // Append proxy to sources here
+        .catch((err) => console.log(err));
     }
   });
-
   if (!parameter) {
     return { isLoading: true };
   }
-
   return {
     isLoading: results.isLoading,
     isError: results.isError,
-    data: results.data,
+    data: results.data?.data,
   };
 }
 
 /**
- * Search Anime
- * @param {string} name - Name of the anime to search
- * @returns {Object} - Search results, including loading and error states
+ *
+ * @param  name
+ * @returns an object containing loading and error states from the query and data retrieved
  */
+
 export function useSearch(name) {
   const searchResults = handleConsumetResponse("/", name.toLowerCase());
   console.log(name.toLowerCase());
@@ -58,7 +35,9 @@ export function useSearch(name) {
   if (results?.length === 0) {
     return { noAnime: true };
   }
-
+  /**
+   * if results only contain one item determine wheter its sub or dub
+   */
   if (results?.length === 1) {
     if (
       results[0].id.slice(results[0].id.length - 3, results[0].id.length) ===
@@ -69,15 +48,28 @@ export function useSearch(name) {
       subAnime = results[0];
     }
   }
-
+  console.log(results);
   if (results?.length > 1) {
     const suffix_0 = results[0].id.slice(
       results[0].id.length - 3,
       results[0].id.length
     );
-
+    /**
+     * if results.length is more than one
+     * if the first item is not dub->
+     * then set the subAnime=results[0]
+     *
+     * check if the second item is dub->
+     * if true set the dubAnime=results[1]
+     * else set dubAnime=null
+     *
+     * else check if first item dub->
+     *  if yes set dubAnime=results[0]
+     *  and subAnime=null
+     */
     if (suffix_0 !== "dub") {
       subAnime = results[0];
+
       dubAnime =
         results.find((el) => el.id === subAnime.id + "-dub") || results[1];
     } else if (suffix_0 === "dub") {
@@ -87,7 +79,6 @@ export function useSearch(name) {
       );
     }
   }
-
   if (!searchResults.isLoading) {
     return {
       dub: dubAnime,
@@ -98,23 +89,12 @@ export function useSearch(name) {
   }
 }
 
-/**
- * Fetch Anime Info
- * @param {string} id - Anime ID
- * @returns {Object} - Anime information
- */
 export function useAnimeInfo(id) {
   const results = handleConsumetResponse(`/info/`, id);
   if (!results.isLoading && results.data) {
     return results.data;
   }
 }
-
-/**
- * Fetch Available Servers for an Episode
- * @param {string} episodeId - Episode ID
- * @returns {Array} - List of usable servers
- */
 export function useServers(episodeId) {
   const results = handleConsumetResponse(`/servers/`, episodeId);
 
@@ -133,20 +113,14 @@ export function useServers(episodeId) {
   }
 }
 
-/**
- * Fetch Episode Files
- * @param {Object} params - Server and Episode ID
- * @returns {Object} - Sources for the episode with proxy URLs
- */
 export function useEpisodeFiles({ server, id }) {
   const results = handleConsumetResponse(
     "/watch/",
     server && id ? `${id}?server=${server.id}` : null
   );
-
   if (!results.isLoading && results.data) {
     return {
-      sources: results.data.sources, // Proxy URLs already appended
+      sources: results.data.sources,
       isLoading: results.isLoading,
     };
   } else {
