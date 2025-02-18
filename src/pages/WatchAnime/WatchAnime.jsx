@@ -16,7 +16,7 @@ import axios from "axios";
 const useAniwatchSearch = (query) => {
   return useQuery(["search", query], async () => {
     const { data } = await axios.get(
-      `https://api.aniwatch.me/api/v2/hianime/search?query=${encodeURIComponent(query)}`
+      `https://aniwatch-api-dusky.vercel.app/api/v2/hianime/search?query=${encodeURIComponent(query)}`
     );
     return data.data;
   });
@@ -25,7 +25,7 @@ const useAniwatchSearch = (query) => {
 const useAniwatchInfo = (animeId) => {
   return useQuery(["info", animeId], async () => {
     const { data } = await axios.get(
-      `https://api.aniwatch.me/api/v2/hianime/anime/${animeId}/episodes`
+      `https://aniwatch-api-dusky.vercel.app/api/v2/hianime/anime/${animeId}/episodes`
     );
     return data.data;
   });
@@ -34,7 +34,7 @@ const useAniwatchInfo = (animeId) => {
 const useAniwatchServers = (episodeId) => {
   return useQuery(["servers", episodeId], async () => {
     const { data } = await axios.get(
-      `https://api.aniwatch.me/api/v2/hianime/episode/servers?animeEpisodeId=${episodeId}`
+      `https://aniwatch-api-dusky.vercel.app/api/v2/hianime/episode/servers?animeEpisodeId=${episodeId}`
     );
     return data.data;
   });
